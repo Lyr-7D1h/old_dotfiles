@@ -1,17 +1,28 @@
 use std::env;
 
-struct ImporterArgs {
-  destpath: String,
-  srcpath: String
+pub struct ImporterArgs {
+  srcpath: &'static str,
+  destpath: &'static str
 }
 
-pub mod args {
-  pub fn get_args() -> ImporterArgs {
-    let args: Vec<String> = env::args().collect();
+pub fn get_args() -> Result<ImporterArgs, String> {
+  let args: Vec<String> = env::args().collect();
 
-    ImporterArgs {
-      srcdir: "/home/lyr/p/dotfiles/importer/test-config/config", 
-      destpath: "test-config/new_config",
+  if args.len() > 1 {
+    match args[1].as_str() {
+      "-h" => println!("Help"),
+      _ => return Err(format!("Invalid option: {}", args[1]))
     }
   }
+
+
+  for arg in args.iter() {
+    println!("{:?}", arg);
+  }
+
+
+  Ok(ImporterArgs {
+    srcpath: "/home/lyr/p/dotfiles/importer/test-config/config", 
+    destpath: "test-config/new_config",
+  })
 }
