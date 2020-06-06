@@ -2,6 +2,8 @@ use std::fs;
 use std::path;
 use std::io;
 
+pub mod args;
+
 mod copy;
 
 pub struct Importer {
@@ -10,10 +12,10 @@ pub struct Importer {
 }
 
 impl Importer {
-    pub fn new(destpath: &str, srcpath: &str) -> Result<Importer, String> {
+    pub fn new(args: &args::ImporterArgs) -> Result<Importer, String> {
         let importer = Importer {
-            destpath: path::PathBuf::from(destpath),
-            srcpath: path::PathBuf::from(srcpath)
+            destpath: args.destpath.clone(),
+            srcpath: args.srcpath.clone()
         };
 
         importer.validate()?;
@@ -35,27 +37,19 @@ impl Importer {
     pub fn backup(&self) -> io::Result<()> {
         let mut backup_path = self.destpath.with_file_name("config-backup");
 
-        let mut file_extension = 0;
+        let mut file_extension = 1;
         loop {
             let error = fs::create_dir(&backup_path).err();
 
             match error {
-                None => {
-                    break; 
-                },
+                None => break,
                 Some(err) => {
                     if err.kind() == io::ErrorKind::AlreadyExists {
-                        let file_name ;
-                        if file_extension > 0 {
-                            file_name = format!("config-backup{}", file_extension);
-                        } else {
-                            file_name = String::from("config-backup");
-                        }
-
-                        backup_path.set_file_name(file_name);
+                        backup_path.set_file_name(
+                format!("config-backup{}", file_extension)
+                        );
                         file_extension += 1;
                     } else {
-                        println!("{}", err);
                         return Err(
                             io::Error::new(err.kind(), "could not create backup directory")
                         );

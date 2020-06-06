@@ -1,28 +1,53 @@
 use std::env;
+use std::path;
 
 pub struct ImporterArgs {
-  srcpath: &'static str,
-  destpath: &'static str
+  pub srcpath: path::PathBuf,
+  pub destpath: path::PathBuf,
+  pub backup: bool,
 }
 
-pub fn get_args() -> Result<ImporterArgs, String> {
-  let args: Vec<String> = env::args().collect();
+impl ImporterArgs {
+  fn default() -> ImporterArgs {
+    let dot_files_path  = match env::current_dir() {
+      Err(_) => panic!("Could not fetch current working directory"),
+      Ok(value) => value.parent().unwrap().canonicalize().unwrap()
+    };
 
-  if args.len() > 1 {
-    match args[1].as_str() {
-      "-h" => println!("Help"),
-      _ => return Err(format!("Invalid option: {}", args[1]))
+    let home_path = match env::var("HOME") {
+      Err(_) => panic!("Could not find home directory"),
+      Ok(value) => value
+    };
+
+    let mut destpath = path::PathBuf::from(home_path);
+    destpath.push(".config");
+
+    ImporterArgs {
+      srcpath: dot_files_path,
+      destpath: destpath,
+      backup: true
     }
   }
 
+  pub fn new() -> Result<ImporterArgs, String> {
+    let args: Vec<String> = env::args().collect();
 
-  for arg in args.iter() {
-    println!("{:?}", arg);
+    let mut importer_args = ImporterArgs::default();
+
+    if args.len() > 1 {
+      match args[1].as_str() {
+        "-h" => return Err(String::from("Help")),
+        "--no-backup" => importer_args.backup = false,
+        "-t" => {
+          println!("Using test paths..");
+          importer_args.srcpath = path::PathBuf::from("test-config/new_config");
+          importer_args.destpath = path::PathBuf::from("test-config/config");
+        },
+        _ => return Err(format!("Invalid option: {}", args[1]))
+      }
+    } else {
+    }
+
+    Ok(importer_args)
   }
-
-
-  Ok(ImporterArgs {
-    srcpath: "/home/lyr/p/dotfiles/importer/test-config/config", 
-    destpath: "test-config/new_config",
-  })
 }
