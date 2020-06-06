@@ -21,6 +21,10 @@ fn link_recurse(src_dir: &path::PathBuf, dest_dir: &path::PathBuf, cur_dir: &pat
         }
 
         if found_path.is_file() {
+          if dest_path.is_dir() {
+            fs::remove_dir_all(&dest_path)?;
+          }
+
           println!("{:?} to {:?}", found_path, dest_path);
           fs::hard_link(found_path, dest_path).unwrap();
           // if let Err(err) = fs::hard_link(found_path, dest_path) {
@@ -38,4 +42,3 @@ fn link_recurse(src_dir: &path::PathBuf, dest_dir: &path::PathBuf, cur_dir: &pat
 
   Ok(())
 }
-

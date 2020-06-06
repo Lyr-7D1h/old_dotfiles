@@ -1,0 +1,27 @@
+[colors]
+xfs=#f2eeed
+xbs=#4b5cc4
+
+;background=#1c1c1c
+background=#000
+background-alt=#000000
+
+foreground=#ffffff
+foreground-alt = #555
+
+primary = #4b5cc4
+primary-shade1 = #4453b0
+primary-shade2 = #3c4a9d
+primary-shade3 = #354089
+primary-shade4 = #2d3776
+
+primary-tint1 = #5d6cca
+primary-tint2 = #6f7dd0
+primary-tint3 = #818dd6
+primary-tint4 = #939ddc
+
+secondary = #3092a0
+
+primary-text = #ffffff
+
+alert = #c93532

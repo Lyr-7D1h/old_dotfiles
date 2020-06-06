@@ -4,8 +4,13 @@
 #cat ~/.cache/neofetch
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/lyr/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+#ZSH_THEME="minimal-custom"
 ZSH_THEME="lambda"
 
 # Which plugins would you like to load?
@@ -13,7 +18,12 @@ ZSH_THEME="lambda"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose)
+plugins=(git docker docker-compose zsh-autosuggestions)
+
+# ZSH-AUTOSUGGESTIONS
+# https://github.com/zsh-users/zsh-autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias vim=nvim
 
 # Kubectl autocompletion
 source <(kubectl completion zsh)

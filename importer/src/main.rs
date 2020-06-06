@@ -57,7 +57,8 @@ fn main() {
 
     println!("\nLinking files");
 
-    importer.link().unwrap_or_else(|err| {
-        println!("Linking failed: {}", err)
-    });
+    match importer.link() {
+        Ok(_) => println!("Linking complete"),
+        Err(err) => eprintln!("Linking failed: {}", err)
+    }
 }
