@@ -13,7 +13,7 @@ fn main() {
         process::exit(1)
     });
 
-    println!("\nSource: {:?}\nDestination: {:?}\n", options.srcpath, options.destpath);
+    println!("\nSource: {:?}\nDestination: {:?}", options.srcpath, options.destpath);
     
     let importer = Importer::new(&options).unwrap_or_else(|err| {
         eprintln!("Invalid options: {}", err);
@@ -21,6 +21,7 @@ fn main() {
     });
     
     if options.backup {
+        println!("\nBacking up...");
         match importer.backup() {
             Ok(_) => println!("Backup complete"),
             Err(err) => {
@@ -30,14 +31,31 @@ fn main() {
                         panic!("There is no source file")
                 } 
                     _ => {
-                        eprintln!("Backup failed: {}", err)
+                        eprintln!("Backup failed: {}", err);
+                        eprintln!("Continue with linking files? (y/n)");
+
+                        let mut input= String::new();
+                        loop {
+                            io::stdin().read_line(&mut input).unwrap();
+
+                            let attempt = input.trim().to_lowercase();
+
+                            if attempt == "y" || attempt == "yes" {
+                                break;
+                            } else if attempt == "n" || attempt == "no" {
+                                process::exit(1)
+                            } else {
+                                eprintln!("Invalid option: '{}'. Type either y or n", attempt);
+                                input.clear();
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    println!("Linking files");
+    println!("\nLinking files");
 
     importer.link().unwrap_or_else(|err| {
         println!("Linking failed: {}", err)

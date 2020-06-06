@@ -35,9 +35,9 @@ impl ImporterArgs {
 
     if args.len() > 1 {
       match args[1].as_str() {
-        "-h" => return Err(String::from("Help")),
-        "--no-backup" => importer_args.backup = false,
-        "-t" => {
+        "-h" | "--help" => return Err(String::from("Help")),
+        "-n" | "--no-backup" => importer_args.backup = false,
+        "-t" | "--test" => {
           println!("Using test paths..");
           importer_args.srcpath = path::PathBuf::from("test-config/new_config");
           importer_args.destpath = path::PathBuf::from("test-config/config");
