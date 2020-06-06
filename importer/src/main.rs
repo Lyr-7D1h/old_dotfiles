@@ -4,14 +4,17 @@ use importer::args;
 use std::io;
 use std::process;
 
+///
+/// Make sure src_dir does not contain "dest_dir.filename()-backup" as file or directory
+///
 fn main() {
     let options = args::ImporterArgs::new().unwrap_or_else(|err| {
         eprintln!("{}", err);
         process::exit(1)
     });
-    
-    println!("Starting dotfiles importer...");
 
+    println!("\nSource: {:?}\nDestination: {:?}\n", options.srcpath, options.destpath);
+    
     let importer = Importer::new(&options).unwrap_or_else(|err| {
         eprintln!("Invalid options: {}", err);
         process::exit(1)

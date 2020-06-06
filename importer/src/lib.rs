@@ -4,7 +4,7 @@ use std::io;
 
 pub mod args;
 
-mod copy;
+mod backup;
 
 pub struct Importer {
     destpath: path::PathBuf,
@@ -35,7 +35,10 @@ impl Importer {
     }
 
     pub fn backup(&self) -> io::Result<()> {
-        let mut backup_path = self.destpath.with_file_name("config-backup");
+        let mut backup_path = self.destpath.clone(); //.parent().unwrap().to_path_buf(); // self.destpath.clone()
+        backup_path.push(
+            format!("{}-backup", self.destpath.file_name().unwrap().to_str().unwrap())
+        );
 
         let mut file_extension = 1;
         loop {
@@ -60,7 +63,7 @@ impl Importer {
 
         println!("Copying from {} to {}", &self.destpath.display(), backup_path.display());
 
-        copy::copy_dir(&self.destpath, &backup_path)
+        backup::backup_existing_files(&self.srcpath, &self.destpath, &backup_path)
     }
 
     pub fn link(&self) -> std::io::Result<()> {

@@ -19,8 +19,7 @@ impl ImporterArgs {
       Ok(value) => value
     };
 
-    let mut destpath = path::PathBuf::from(home_path);
-    destpath.push(".config");
+    let destpath = path::PathBuf::from(home_path);
 
     ImporterArgs {
       srcpath: dot_files_path,
