@@ -29,12 +29,14 @@ impl ImporterArgs {
   }
 
   pub fn new() -> Result<ImporterArgs, String> {
-    let args: Vec<String> = env::args().collect();
+    let mut args: Vec<String> = env::args().collect();
 
     let mut importer_args = ImporterArgs::default();
 
-    if args.len() > 1 {
-      match args[1].as_str() {
+    args.remove(0);
+
+    for arg in args.iter() {
+      match arg.as_str() {
         "-h" | "--help" => return Err(String::from("Help")),
         "-n" | "--no-backup" => importer_args.backup = false,
         "-t" | "--test" => {
@@ -42,9 +44,8 @@ impl ImporterArgs {
           importer_args.srcpath = path::PathBuf::from("test-config/new_config");
           importer_args.destpath = path::PathBuf::from("test-config/config");
         },
-        _ => return Err(format!("Invalid option: {}", args[1]))
+        _ => return Err(format!("Invalid option: {}", arg))
       }
-    } else {
     }
 
     Ok(importer_args)

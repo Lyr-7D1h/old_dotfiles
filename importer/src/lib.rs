@@ -5,6 +5,7 @@ use std::io;
 pub mod args;
 
 mod backup;
+mod link;
 
 pub struct Importer {
     destpath: path::PathBuf,
@@ -67,7 +68,8 @@ impl Importer {
     }
 
     pub fn link(&self) -> std::io::Result<()> {
+
         // Hard link
-        Ok(())
+        link::link(&self.srcpath, &self.destpath)
     }
 }
