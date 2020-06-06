@@ -37,7 +37,21 @@ impl ImporterArgs {
 
     for arg in args.iter() {
       match arg.as_str() {
-        "-h" | "--help" => return Err(String::from("Help")),
+        "-h" | "--help" => {
+          let help = r#"dotfiles_importer
+Lyr-7d1h <Lyr-7d1h@pm.me>
+
+Usage:
+  importer [OPTIONS]
+
+Backup existing dotfiles and then hardlink them from source directory to destination directory
+
+OPTIONS:
+  -n, --no-backup       don't make a backup of the existing dotfiles
+  -t, --test            use the test directory (test-config)
+          "#;
+          return Err(String::from(help));
+        },
         "-n" | "--no-backup" => importer_args.backup = false,
         "-t" | "--test" => {
           println!("Using test paths..");
