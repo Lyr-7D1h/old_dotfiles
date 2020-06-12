@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="minimal-custom"
-ZSH_THEME="lambda"
+ZSH_THEME="lyr"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -110,10 +110,10 @@ source $ZSH/oh-my-zsh.sh
 alias vim=nvim
 
 # Kubectl autocompletion
-source <(kubectl completion zsh)
+#source <(kubectl completion zsh)
 
 # Helm autocompletaion
-source <(helm completion zsh)
+#source <(helm completion zsh)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
