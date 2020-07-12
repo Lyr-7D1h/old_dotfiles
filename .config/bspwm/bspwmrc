@@ -24,9 +24,12 @@ bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Screenkey manage=off
 
 #sxhkd &
-$HOME/.config/polybar/launch.sh
-$HOME/.config/desknamer/launch.sh
+
+# Autostart scripts
+for script in $HOME/.config/launch-scripts/*; do
+	echo $script
+	bash "$script" -H
+done
 
 feh --bg-center --bg-fill ~/Pictures/wallpapers/fsoc.jpg &
-protonmail-bridge --no-window &
 wmname LG3D & # Fix for Java based applications like Intellij

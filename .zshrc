@@ -110,7 +110,7 @@ source $ZSH/oh-my-zsh.sh
 alias vim=nvim
 
 # Kubectl autocompletion
-#source <(kubectl completion zsh)
+source <(kubectl completion zsh)
 
 # Helm autocompletaion
 #source <(helm completion zsh)

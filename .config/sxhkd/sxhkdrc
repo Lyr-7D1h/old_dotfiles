@@ -10,12 +10,16 @@ super + Return
 	alacritty
 
 # program launcher
-super + @space
+super + space
 	rofi -show run
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+# Sleep
+super + minus
+	systemctl hybrid-sleep
 
 #
 # bspwm hotkeys
@@ -73,19 +77,35 @@ super + {_,shift + }c
 super + {o,p}
 	bspc desktop -f {prev,next}.local
 
+# focus monitor
+super + bracketright
+	bspc monitor `bspc query -M -m '.!focused'` -f next
+super + bracketleft
+	bspc monitor `bspc query -M -m '.!focused'` -f prev
+
 # focus the last node/desktop
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
-super + bracket{left, right}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+#super + bracket{left, right}
+#	bspc wm -h off; \
+#	bspc node {older,newer} -f; \
+#	bspc wm -h on
+
+# Focus to desktop on current monitor
+super + {1-9}
+    D={1-9}; \
+    bspc desktop -f "$(bspc query -D -m | sed -n "$D p")"
+
+# Send window to different desktop
+super + shift + {1-9}
+    D={1-9}; \
+    bspc node -d "$(bspc query -D -m | sed -n "$D p")"
 
 # focus or send to the given desktop
-super + {_,shift + } {1-9,0} ; {1-9,0}
-	bspc {desktop -f,node -d} "^{1-9,10}:^{1-9,10}"
+#super + {_,shift + } {1-9,0} ; {1-9,0}
+#	bspc {desktop -f,node -d} "^{1-9,10}:^{1-9,10}"
 
 #
 # preselect
@@ -122,5 +142,5 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-super + {h,j,k,l}
+super + {h,j,k,la
 	bspc node -v {-20 0,0 20,0 -20,20 0}

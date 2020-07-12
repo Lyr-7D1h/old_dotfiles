@@ -19,7 +19,7 @@
 
   option-6-listview-spacing:            10px;
 
-  menu-window-padding:                   5px 15px;
+  menu-window-padding:                   100px 15px;
   menu-inputbar-margin:                  10px 0px;
   menu-prompt-padding:                   10px 20px 10px 20px;
   menu-prompt-margin:                    0px 0px 0px -2px;

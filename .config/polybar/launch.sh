@@ -11,7 +11,8 @@ cd ~/.config/polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 echo "===== RESTART =====" | tee -a $log_file &
-polybar main -rq >>$log_file 2>&1 &
+polybar top -rq >>$log_file 2>&1 &
+polybar bottom -rq >>$log_file 2>&1 &
 polybar external -rq >>$log_file 2>&1 &
 
 
