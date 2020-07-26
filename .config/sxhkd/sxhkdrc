@@ -79,9 +79,11 @@ super + {o,p}
 
 # focus monitor
 super + bracketright
-	bspc monitor `bspc query -M -m '.!focused'` -f next
+	bspc monitor -f next
+	#bspc monitor `bspc query -M -m '.!focused'` -f next
 super + bracketleft
-	bspc monitor `bspc query -M -m '.!focused'` -f prev
+	bspc monitor -f prev
+	#bspc monitor `bspc query -M -m '.!focused'` -f prev
 
 # focus the last node/desktop
 super + {grave,Tab}

@@ -35,8 +35,9 @@
 sxhkd &
 dunst &
 
-srandr --output HDMI-A-3 --primary --auto
-xrandr --output DP-1-1 --left-of HDMI-A-3 --auto
+xrandr --output HDMI-A-3 --primary --auto
+xrandr --output HDMI-1-2 --auto --left-of HDMI-A-3
+xrandr --output DP-1-1 --auto --right-of HDMI-A-3
 
 # fix cross cursor
 xsetroot -cursor_name left_ptr
