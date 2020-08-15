@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+
+
+# Kill existing programs
+active_programs=$(pgrep -f "/usr/bin/mopidy")
+if ! test -z "$active_programs" 
+then
+		kill -9 $active_programs
+fi
+
+
+
+echo "===== RESTART =====" | tee -a /tmp/mopidy.log
+mopidy 2>&1 | tee /tmp/mopidy.log & 

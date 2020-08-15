@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+killall -q protonmail-bridge
+protonmail-bridge --no-window &

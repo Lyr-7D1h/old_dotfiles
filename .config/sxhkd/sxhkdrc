@@ -18,8 +18,20 @@ super + Escape
 	pkill -USR1 -x sxhkd
 
 # Sleep
-super + minus
+super + underscore
 	systemctl hybrid-sleep
+
+# Power menu
+super + equal
+	rofi -show power-menu -modi power-menu:rofi-power-menu
+
+# Ranger shortcut
+super + e
+	alacritty -e ranger
+
+# Firefox shortcut
+super + f
+	firefox
 
 #
 # bspwm hotkeys
@@ -50,7 +62,7 @@ super + g
 #
 
 # set the window state
-super + {t,shift + t,s,f}
+super + alt + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
 # set the node flags
@@ -144,5 +156,5 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
-super + {h,j,k,la
+super + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}

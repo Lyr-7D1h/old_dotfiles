@@ -7,8 +7,9 @@ bspc monitor HDMI-1-2 -d 1 2 3 4 5
 bspc monitor DP-1-1 -d 1 2 3
 
 bspc config border_width         1
-bspc config window_gap          12
+bspc config window_gap          20 # 12
 bspc config top_padding		30 # 40
+bspc config bottom_padding	30
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
@@ -33,5 +34,6 @@ for script in $HOME/.config/launch-scripts/*; do
 	bash "$script" -H
 done
 
-feh --bg-center --bg-fill ~/Pictures/wallpapers/fsoc.jpg &
+#feh --bg-center --bg-fill ~/Pictures/wallpapers/fsoc.jpg &
+feh --bg-center --bg-fill ~/Pictures/wallpapers/chil_future.png &
 wmname LG3D & # Fix for Java based applications like Intellij
