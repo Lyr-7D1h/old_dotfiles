@@ -12,7 +12,14 @@ tertiary = #333
 primary-text = #fff
 secondary-text = #aaaaaa
 
-red = #c93532
+green = #2369c1
+orange = #79479a
+red = #cf2472
+
+#green = #aaff77
+#orange = #fba922
+#red = #ff5555
+
 
 [bar/base]
 font-0 = "SF Mono:size=9;3"
@@ -35,7 +42,7 @@ border-color = #111
 
 offset-y = 7
 
-module-margin = 4
+module-margin = 2
 
 # Draw above wm defined space
 wm-restack = bspwm
@@ -65,11 +72,15 @@ modules-center = spotify
 
 [bar/tray]
 inherit = bar/base
-width = 13%
+width = 28%
 
-offset-x = 86.5%
+offset-x = 71.5%
+padding = 5
 
-modules-center = pulseaudio date
+modules-center = wired-network pulseaudio date
+
+tray-position = right
+tray-padding = 5
 
 [bar/ws]
 inherit = bar/base
@@ -86,10 +97,10 @@ offset-x = 0.5%
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI-A-3}
 bottom = true
-width = 25%
+width = 30%
 
-modules-center = cpu memory
-offset-x = 74.5%
+modules-center = temperature cpu memory
+offset-x = 69.5%
 
 
 [bar/external]
@@ -110,6 +121,8 @@ modules-center = bspwm
 
 [module/bspwm]
 type = internal/bspwm
+
+reverse-scroll = true
 
 #format = <label-state> <label-mode>
 
@@ -167,33 +180,49 @@ label-padding = 3
 
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 2
-ramp-coreload-0-foreground = #aaff77
+ramp-coreload-0-foreground = ${colors.green}
 ramp-coreload-1 = ▂
 ramp-coreload-1-font = 2
-ramp-coreload-1-foreground = #aaff77
+ramp-coreload-1-foreground = ${colors.green}
 ramp-coreload-2 = ▃
 ramp-coreload-2-font = 2
-ramp-coreload-2-foreground = #aaff77
+ramp-coreload-2-foreground = ${colors.green}
 ramp-coreload-3 = ▄
 ramp-coreload-3-font = 2
-ramp-coreload-3-foreground = #aaff77
+ramp-coreload-3-foreground = ${colors.green}
 ramp-coreload-4 = ▅
 ramp-coreload-4-font = 2
-ramp-coreload-4-foreground = #fba922
+ramp-coreload-4-foreground = ${colors.orange}
 ramp-coreload-5 = ▆
 ramp-coreload-5-font = 2
-ramp-coreload-5-foreground = #fba922
+ramp-coreload-5-foreground = ${colors.orange}
 ramp-coreload-6 = ▇
 ramp-coreload-6-font = 2
-ramp-coreload-6-foreground = #ff5555
+ramp-coreload-6-foreground = ${colors.red}
 ramp-coreload-7 = █
 ramp-coreload-7-font = 2
-ramp-coreload-7-foreground = #ff5555
+ramp-coreload-7-foreground = ${colors.red}
 
 [module/date]
 type = internal/date
 date = %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M:%S%%{F-}
-;date-alt = %%{F#99}%A, %d %B %Y %%{F#fff}%H:%M:%S%%{F-}
+
+[module/temperature]
+type = internal/temperature
+
+format = TEMP  <label>
+format-warn = TEMP  <label-warn>
+
+format-padding = 5
+format-warn-padding = 5
+
+label-foreground = ${colors.green}
+label-warn-foreground = ${colors.orange}
+
+thermal-zone = 3
+
+warn-temperature = 60
+
 
 [module/memory]
 type = internal/memory
@@ -202,10 +231,10 @@ label = RAM
 label-padding = 3
 
 bar-used-width = 30
-bar-used-foreground-0 = #aaff77
-bar-used-foreground-1 = #aaff77
-bar-used-foreground-2 = #fba922
-bar-used-foreground-3 = #ff5555
+bar-used-foreground-0 = ${colors.green}
+bar-used-foreground-1 = ${colors.green}
+bar-used-foreground-2 = ${colors.orange}
+bar-used-foreground-3 = ${colors.red}
 bar-used-indicator = |
 bar-used-indicator-font = 6
 bar-used-indicator-foreground = #ff
@@ -237,8 +266,8 @@ click-left = "playerctl -p spotify play-pause"
 
 [module/spotify]
 type = custom/script
-exec = playerctl -p spotify metadata --format '{{artist}} - {{title}}'
-exec-if = "pgrep spotify"
+exec = playerctl -p spotify metadata --format '{{artist}} - {{title}}' || echo "No song is playing" 
+#exec-if = "pgrep spotify"
 format-padding = 1
 tail = true
 interval = 1
@@ -253,7 +282,8 @@ type = internal/network
 interface = enp5s0
 interval = 3.0
 
-label-connected = %local_ip%  %downspeed%  %upspeed%
+label-connected = %local_ip% %{O3} %downspeed:10:10% %{O3} %upspeed:10:10%
+format-connected-spacing = 20 
 format-connected-foreground = ${colors.foreground}
 label-disconnected-foreground = #66
 
