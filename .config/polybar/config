@@ -27,7 +27,9 @@ font-1 = "Font Awesome 5 Free Regular:size=9;3"
 font-2 = "Font Awesome 5 Free Solid:size=9;3"
 font-3 = "MaterialIcons Regular:size=9;3"
 font-4 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular:size=9;3"
-background = ${colors.background}
+background = #00000000
+transparent = true
+;${colors.background}
 foreground = ${colors.foreground}
 line-color = ${colors.foreground}
 
@@ -37,70 +39,38 @@ enable-ipc = true
 height = 25
 padding = 2
 
-border-size = 1 
-border-color = #111
+border-size = 0
+;border-color = #111
+module-margin = 0
 
 offset-y = 7
-
-module-margin = 2
 
 # Draw above wm defined space
 wm-restack = bspwm
 override-redirect = true
 
-
-[bar/power]
+[bar/top]
 inherit = bar/base
-monitor = ${env:MONITOR:HDMI-A-3}
-width = 10%
+modules-left = powermenu
+modules-center = spotify
+modules-right = wired-network pulseaudio date
 
 offset-x = 0.5%
-
-line-size = 16
-
-modules-center = powermenu 
-
-[bar/music]
-inherit = bar/base
-enable-ipc = true
-width = 25%
-
-offset-x = 37.5%
-
-modules-left = previous playpause next
-modules-center = spotify
-
-[bar/tray]
-inherit = bar/base
-width = 28%
-
-offset-x = 71.5%
-padding = 5
-
-modules-center = wired-network pulseaudio date
+width = 99%
 
 tray-position = right
 tray-padding = 5
+tray-background = ${colors.background}
 
-[bar/ws]
+[bar/bottom]
 inherit = bar/base
-monitor = ${env:MONITOR:HDMI-A-3}
-bottom = true
-width = 12%
-
+width = 99%
 line-size = 2
-
-modules-center = bspwm
-offset-x = 0.5%
-
-[bar/stats]
-inherit = bar/base
 monitor = ${env:MONITOR:HDMI-A-3}
 bottom = true
-width = 30%
-
-modules-center = temperature cpu memory
-offset-x = 69.5%
+offset-x = 0.5%
+modules-left = bspwm
+modules-right = temperature cpu memory
 
 
 [bar/external]
@@ -108,9 +78,8 @@ inherit = bar/base
 monitor = ${env:MONITOR:HDMI-A-3}
 bottom = true
 fixed-center = true
-width = 25%
-
-offset-x = 37.5%
+width = 100%
+;offset-x = 37.5%
 line-size = 2
 
 modules-center = bspwm
@@ -123,6 +92,9 @@ modules-center = bspwm
 type = internal/bspwm
 
 reverse-scroll = true
+label-empty-background = ${colors.background}
+label-occupied-background = ${colors.background}
+format-background = ${colors.background}
 
 #format = <label-state> <label-mode>
 
@@ -175,8 +147,9 @@ label-private-padding = ${module/bspwm.label-monocle-padding}
 type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
+format-background = ${colors.background}
+format-padding = 5
 label = CPU
-label-padding = 3
 
 ramp-coreload-0 = ▁
 ramp-coreload-0-font = 2
@@ -206,9 +179,13 @@ ramp-coreload-7-foreground = ${colors.red}
 [module/date]
 type = internal/date
 date = %%{F#99}%Y-%m-%d%%{F-}  %%{F#fff}%H:%M:%S%%{F-}
+format-background = ${colors.background}
+format-padding = 5
 
 [module/temperature]
 type = internal/temperature
+
+format-background = ${colors.background}
 
 format = TEMP  <label>
 format-warn = TEMP  <label-warn>
@@ -227,6 +204,8 @@ warn-temperature = 60
 [module/memory]
 type = internal/memory
 format = <label> <bar-used>
+format-background = ${colors.background}
+format-padding = 5
 label = RAM
 label-padding = 3
 
@@ -282,7 +261,10 @@ type = internal/network
 interface = enp5s0
 interval = 3.0
 
-label-connected = %local_ip% %{O3} %downspeed:10:10% %{O3} %upspeed:10:10%
+;label-connected = %local_ip% %{O3} %downspeed:10:10% %{O3} %upspeed:10:10%
+label-connected = %local_ip%  %downspeed:10:10%  %upspeed:10:10%
+label-connected-background = ${colors.background}
+label-connected-padding = 5
 format-connected-spacing = 20 
 format-connected-foreground = ${colors.foreground}
 label-disconnected-foreground = #66
@@ -290,17 +272,22 @@ label-disconnected-foreground = #66
 [module/powermenu]
 type = custom/text
 content = 
-content-padding = 5
+content-padding = 20
 content-foreground = ${colors.secondary}
+content-background = ${colors.background}
 click-left = rofi -show power-menu -modi power-menu:rofi-power-menu
 cusor-click = pointer
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume-margin = 1
+format-volume-background = ${colors.background}
+format-muted-background = ${colors.background}
+format-volume-padding = 3
+
 format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage:3:3%%
+label-volume-padding = 0
 use-ui-max = false
 interval = 5
 

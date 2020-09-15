@@ -35,6 +35,7 @@
 sxhkd &
 dunst &
 lxsession &
+picom -Cb
 
 xrandr --output HDMI-A-3 --primary --auto
 xrandr --output HDMI-1-2 --auto --left-of HDMI-A-3
