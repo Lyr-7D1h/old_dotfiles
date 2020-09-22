@@ -53,7 +53,7 @@ override-redirect = true
 inherit = bar/base
 modules-left = powermenu
 modules-center = spotify
-modules-right = wired-network pulseaudio date
+modules-right = ip wired-network pulseaudio date
 
 offset-x = 0.5%
 width = 99%
@@ -186,6 +186,7 @@ format-padding = 5
 type = internal/temperature
 
 format-background = ${colors.background}
+format-warn-background = ${colors.background}
 
 format = TEMP  <label>
 format-warn = TEMP  <label-warn>
@@ -222,6 +223,13 @@ bar-used-fill-font = 6
 bar-used-empty = ─
 bar-used-empty-font = 6
 bar-used-empty-foreground = #444444
+
+[module/ip]
+type = custom/script
+exec = ~/.config/polybar/scripts/ip.py
+format-background = ${colors.background}
+format-padding = 3
+click-left = "playerctl previous"
 
 [module/previous]
 type = custom/script
@@ -264,7 +272,7 @@ interval = 3.0
 ;label-connected = %local_ip% %{O3} %downspeed:10:10% %{O3} %upspeed:10:10%
 label-connected = %local_ip%  %downspeed:10:10%  %upspeed:10:10%
 label-connected-background = ${colors.background}
-label-connected-padding = 5
+label-connected-padding = 3
 format-connected-spacing = 20 
 format-connected-foreground = ${colors.foreground}
 label-disconnected-foreground = #66
