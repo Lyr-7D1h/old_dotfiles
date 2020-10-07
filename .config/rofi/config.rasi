@@ -1,6 +1,7 @@
 /** Configured For Applets **/
 
 configuration {
+  modi:				  "window,drun,run,ssh";
   show-icons:         true;
   icon-theme:         "Papirus";
   location: 5;

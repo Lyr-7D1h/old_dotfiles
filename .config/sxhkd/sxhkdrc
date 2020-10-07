@@ -9,9 +9,18 @@ set -U SXHKD_SHELL sh
 super + Return
 	alacritty
 
-# program launcher
+# Find & Run Desktop program
 super + space
+	rofi -show drun
+#bspc rule -a \* -o node=@$(bspc query -D -d):.focused split_dir=east follow=off && 
+
+# Find & Run program
+super + alt + space 
 	rofi -show run
+
+# Switch window
+super + Tab
+	rofi -show
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -60,6 +69,10 @@ super + y
 super + g
 	bspc node -s biggest
 
+# create new desktop in current monitor
+super + alt + n
+	bspc monitor -a new
+
 #
 # state/flags
 #
@@ -101,8 +114,8 @@ super + bracketleft
 	#bspc monitor `bspc query -M -m '.!focused'` -f prev
 
 # focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+#super + {grave,Tab}
+#	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
 #super + bracket{left, right}
