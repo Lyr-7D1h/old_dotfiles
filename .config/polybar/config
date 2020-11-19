@@ -28,6 +28,7 @@ font-2 = "Font Awesome 5 Free Solid:size=9;3"
 font-3 = "MaterialIcons Regular:size=9;3"
 font-4 = "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular:size=9;3"
 background = #00000000
+;${colors.background}
 transparent = true
 ;${colors.background}
 foreground = ${colors.foreground}
@@ -51,9 +52,9 @@ override-redirect = true
 
 [bar/top]
 inherit = bar/base
+monitor = ${env:MONITOR:HDMI-A-3}
 modules-left = powermenu
-modules-center = spotify
-modules-right = ip wired-network pulseaudio date
+modules-right = spotify ip wired-network pulseaudio-control date
 
 offset-x = 0.5%
 width = 99%
@@ -72,8 +73,16 @@ offset-x = 0.5%
 modules-left = bspwm
 modules-right = temperature cpu memory
 
+[bar/external-top]
+inherit = bar/base
+monitor = ${env:MONITOR:HDMI-A-3}
+modules-left = powermenu
+modules-right = spotify ip wired-network pulseaudio-control date
 
-[bar/external]
+offset-x = 0.5%
+width = 99%
+
+[bar/external-bottom]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI-A-3}
 bottom = true
@@ -229,6 +238,7 @@ type = custom/script
 exec = ~/.config/polybar/scripts/ip.py
 format-background = ${colors.background}
 format-padding = 3
+interval = 60
 click-left = "playerctl previous"
 
 [module/previous]
@@ -253,9 +263,10 @@ click-left = "playerctl -p spotify play-pause"
 
 [module/spotify]
 type = custom/script
-exec = playerctl -p spotify metadata --format '{{artist}} - {{title}}' || echo "No song is playing" 
+exec = playerctl -p spotify metadata --format '{{artist}} - {{title}}' || echo "" 
 #exec-if = "pgrep spotify"
-format-padding = 1
+format-padding = 5 
+format-background = ${colors.background}
 tail = true
 interval = 1
 
@@ -286,8 +297,25 @@ content-background = ${colors.background}
 click-left = rofi -show power-menu -modi power-menu:rofi-power-menu
 cusor-click = pointer
 
+[module/pulseaudio-control]
+type = custom/script
+tail = true
+format-underline = ${colors.primary}
+label-padding = 2
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " --sink-nicknames-from "device.description" --sink-nickname "alsa_output.pci-0000_00_1b.0.analog-stereo:  Speakers" --sink-nickname "alsa_output.usb-Kingston_HyperX_Virtual_Surround_Sound_00000000-00.analog-stereo:  Headphones" listen
+click-right = exec pavucontrol &
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control --sink-blacklist "alsa_output.pci-0000_01_00.1.hdmi-stereo-extra2" next-sink
+scroll-up = pulseaudio-control --volume-max 130 up
+scroll-down = pulseaudio-control --volume-max 130 down
+
+
 [module/pulseaudio]
 type = internal/pulseaudio
+
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
 format-volume-background = ${colors.background}
 format-muted-background = ${colors.background}
@@ -305,5 +333,8 @@ ramp-volume-2 = ""
 
 label-muted = "  muted"   
 label-muted-padding = 0
+
+click-right = pavucontrol &
+click-middle = pulseeffects &
 
 ; vim:ft=dosini

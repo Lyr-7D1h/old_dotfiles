@@ -35,5 +35,7 @@ for script in $HOME/.config/launch-scripts/*; do
 done
 
 #feh --bg-center --bg-fill ~/Pictures/wallpapers/fsoc.jpg &
-feh --bg-center --bg-fill ~/Pictures/wallpapers/chil_future.png &
+#feh --bg-center --bg-fill ~/Pictures/wallpapers/chil_future.png &
+feh --bg-center --bg-fill ~/Pictures/wallpapers/fishing.jpg &
+#feh --bg-center --bg-fill $(find ~/Pictures/wallpapers | shuf -n 1)
 wmname LG3D & # Fix for Java based applications like Intellij

@@ -33,7 +33,6 @@
 # fi
 
 sxhkd &
-nordvpn c &
 dunst &
 lxsession &
 picom -Cb
