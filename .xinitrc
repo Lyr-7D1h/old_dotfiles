@@ -32,14 +32,15 @@
 #  unset f
 # fi
 
-sxhkd &
-dunst &
-lxsession &
-picom -Cb
 
 xrandr --output HDMI-A-3 --primary --auto
 xrandr --output HDMI-1-2 --auto --left-of HDMI-A-3
 xrandr --output DP-1-1 --auto --right-of HDMI-A-3
+
+sxhkd &
+dunst &
+lxsession &
+xcompmgr -C &
 
 # fix cross cursor
 xsetroot -cursor_name left_ptr

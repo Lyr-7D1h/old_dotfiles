@@ -107,6 +107,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias ssh="TERM=screen ssh"
+
 # Kubectl autocompletion
 source <(kubectl completion zsh)
 
@@ -122,6 +124,7 @@ compctl -K _dotnet_zsh_complete dotnet
 
 # Helm autocompletaion
 #source <(helm completion zsh)
+export BROWSER=firefox-developer-edition
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
