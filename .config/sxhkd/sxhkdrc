@@ -45,6 +45,10 @@ super + f
 super + c 
 	code
 
+# Chromium Shortcut
+super + v
+	chromium
+
 #
 # bspwm hotkeys
 #
