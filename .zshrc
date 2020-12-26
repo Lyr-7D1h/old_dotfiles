@@ -107,7 +107,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Fix screen coloring since most remote clients don't support alacritty
 alias ssh="TERM=screen ssh"
+
+alias vim="nvim"
 
 # Kubectl autocompletion
 source <(kubectl completion zsh)

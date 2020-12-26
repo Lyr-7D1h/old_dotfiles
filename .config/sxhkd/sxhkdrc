@@ -28,7 +28,7 @@ super + Escape
 
 # Sleep
 super + underscore
-	systemctl hybrid-sleep
+	systemctl suspend
 
 # Power menu
 super + equal
@@ -90,8 +90,8 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+super + {_,shift + }{h,l}
+	bspc node -{f,s} {west,east}
 
 # focus the node for the given path jump
 super + {b,comma,period}
@@ -106,10 +106,10 @@ super + {o,p}
 	bspc desktop -f {prev,next}.local
 
 # focus monitor
-super + bracketright
+super + j 
 	bspc monitor -f next
 	#bspc monitor `bspc query -M -m '.!focused'` -f next
-super + bracketleft
+super + k
 	bspc monitor -f prev
 	#bspc monitor `bspc query -M -m '.!focused'` -f prev
 

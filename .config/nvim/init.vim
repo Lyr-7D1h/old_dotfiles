@@ -1,5 +1,8 @@
+set number
 call plug#begin()
 
-Plug 'preservim/nerdcommenter'
+Plug 'tpope/vim-commentary'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()

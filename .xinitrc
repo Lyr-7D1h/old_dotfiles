@@ -40,7 +40,7 @@ xrandr --output DP-1-1 --auto --right-of HDMI-A-3
 sxhkd &
 dunst &
 lxsession &
-xcompmgr -C &
+xcompmgr &
 
 # fix cross cursor
 xsetroot -cursor_name left_ptr
