@@ -90,8 +90,8 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,l}
-	bspc node -{f,s} {west,east}
+super + {_,shift + }{h,k,j,l}
+	bspc node -{f,s} {west,north,south,east}
 
 # focus the node for the given path jump
 super + {b,comma,period}
@@ -106,10 +106,10 @@ super + {o,p}
 	bspc desktop -f {prev,next}.local
 
 # focus monitor
-super + j 
+super + alt + l
 	bspc monitor -f next
 	#bspc monitor `bspc query -M -m '.!focused'` -f next
-super + k
+super + alt + h 
 	bspc monitor -f prev
 	#bspc monitor `bspc query -M -m '.!focused'` -f prev
 

@@ -129,11 +129,16 @@ compctl -K _dotnet_zsh_complete dotnet
 #source <(helm completion zsh)
 export BROWSER=firefox-developer-edition
 
+export EDITOR=vim
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Adding local bin to path
 export PATH="$PATH:$HOME/.local/bin"
+
+# Add gem executables
+export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
