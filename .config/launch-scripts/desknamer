@@ -4,7 +4,7 @@
 
 # Kill existing desknamer
 active_desknamers=$(pgrep -f "desknamer.sh")
-if ! test -z "$active_desknamers" 
+if ! test -z "$active_desknamers"
 then
 		kill -9 $active_desknamers &
 fi

@@ -36,7 +36,7 @@ super + equal
 
 # Ranger shortcut
 super + e
-	nautilus
+	alacritty -e ranger
 
 # Firefox shortcut
 super + f
@@ -106,10 +106,10 @@ super + {o,p}
 	bspc desktop -f {prev,next}.local
 
 # focus monitor
-super + alt + l
+super + ctrl + l
 	bspc monitor -f next
 	#bspc monitor `bspc query -M -m '.!focused'` -f next
-super + alt + h 
+super + ctrl + h 
 	bspc monitor -f prev
 	#bspc monitor `bspc query -M -m '.!focused'` -f prev
 
@@ -142,8 +142,8 @@ super + shift + {1-9}
 #
 
 # preselect the direction
-super + ctrl + {h,j,k,l}
-	bspc node -p {west,south,north,east}
+#super + ctrl + {h,j,k,l}
+#	bspc node -p {west,south,north,east}
 
 # preselect the ratio
 super + ctrl + {1-9}
